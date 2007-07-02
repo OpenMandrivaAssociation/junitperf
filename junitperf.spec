@@ -37,9 +37,8 @@ License:        BSD
 Group:          Development/Java
 Source0:        http://www.clarkware.com/software/junitperf-1.9.1.zip
 URL:            http://www.clarkware.com/software/JUnitPerf.html
-BuildRequires:  ant, ant-junit, junit >= 0:3.2, jpackage-utils >= 0:1.6
+BuildRequires:  ant, ant-junit, junit >= 0:3.2, jpackage-utils >= 0:1.6, java-devel
 BuildArch:      noarch
-Requires:       java
 Requires:       jpackage-utils
 Requires:       junit >= 0:3.2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
