@@ -28,9 +28,11 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+%define gcj_support 1
+
 Name:           junitperf
 Version:        1.9.1
-Release:        %mkrel 2.1.1
+Release:        %mkrel 2.1.2
 Epoch:          0
 Summary:        JUnit extension for performance and scalability testing
 License:        BSD
@@ -38,7 +40,14 @@ Group:          Development/Java
 Source0:        http://www.clarkware.com/software/junitperf-1.9.1.zip
 URL:            http://www.clarkware.com/software/JUnitPerf.html
 BuildRequires:  ant, ant-junit, junit >= 0:3.2, jpackage-utils >= 0:1.6, java-devel
+%if %{gcj_support}
+Requires(post): java-gcj-compat
+Requires(postun): java-gcj-compat
+BuildRequires:  java-gcj-compat-devel
+%else
 BuildArch:      noarch
+BuildRequires:  java-devel
+%endif
 Requires:       jpackage-utils
 Requires:       junit >= 0:3.2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -95,10 +104,22 @@ ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 install -d -m 0755 $RPM_BUILD_ROOT%{_datadir}/%{name}
 cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 
+%if %{gcj_support}
+%{_bindir}/aot-compile-rpm
+%endif
+
 # -----------------------------------------------------------------------------
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%if %{gcj_support}
+%post
+%{update_gcjdb}
+
+%postun
+%{clean_gcjdb}
+%endif
 
 # -----------------------------------------------------------------------------
 
@@ -106,6 +127,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0644,root,root,0755)
 %doc LICENSE README docs/JUnitPerf.html
 %{_javadir}/*
+%if %{gcj_support}
+%dir %{_libdir}/gcj/%{name}
+%attr(-,root,root) %{_libdir}/gcj/%{name}/*
+%endif
 
 %files javadoc
 %defattr(0644,root,root,0755)
