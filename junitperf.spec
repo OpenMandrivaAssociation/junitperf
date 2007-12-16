@@ -32,14 +32,14 @@
 
 Name:           junitperf
 Version:        1.9.1
-Release:        %mkrel 2.1.3
+Release:        %mkrel 2.1.4
 Epoch:          0
 Summary:        JUnit extension for performance and scalability testing
 License:        BSD
 Group:          Development/Java
 Source0:        http://www.clarkware.com/software/junitperf-1.9.1.zip
 URL:            http://www.clarkware.com/software/JUnitPerf.html
-BuildRequires:  ant, ant-junit, junit >= 0:3.2, jpackage-utils >= 0:1.6, java-devel
+BuildRequires:  ant, ant-junit, junit >= 0:3.2, java-rpmbuild >= 0:1.6, java-devel
 %if %{gcj_support}
 BuildRequires:  java-gcj-compat-devel
 %else
