@@ -48,7 +48,6 @@ BuildRequires:  java-devel
 %endif
 Requires:       jpackage-utils
 Requires:       junit >= 0:3.2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 JUnitPerf is a collection of JUnit test decorators used to measure the
