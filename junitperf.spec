@@ -32,7 +32,7 @@
 
 Name:           junitperf
 Version:        1.9.1
-Release:        %mkrel 2.1.8
+Release:        %mkrel 2.1.9
 Epoch:          0
 Summary:        JUnit extension for performance and scalability testing
 License:        BSD
