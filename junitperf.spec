@@ -28,27 +28,20 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-%define gcj_support 1
-
 Name:           junitperf
 Version:        1.9.1
-Release:        %mkrel 2.1.9
-Epoch:          0
+Release:        5.2
 Summary:        JUnit extension for performance and scalability testing
 License:        BSD
 Group:          Development/Java
 Source0:        http://www.clarkware.com/software/junitperf-1.9.1.zip
 URL:            http://www.clarkware.com/software/JUnitPerf.html
-BuildRequires:  ant, ant-junit, junit >= 0:3.2, java-rpmbuild >= 0:1.6, java-devel
-%if %{gcj_support}
-BuildRequires:  java-gcj-compat-devel
-%else
+BuildRequires:  ant, ant-junit, junit >= 0:3.2, jpackage-utils >= 0:1.6
 BuildArch:      noarch
-BuildRequires:  java-devel
-%endif
+Requires:       java
 Requires:       jpackage-utils
 Requires:       junit >= 0:3.2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 JUnitPerf is a collection of JUnit test decorators used to measure the
@@ -65,7 +58,7 @@ Javadoc for %{name}.
 %package demo
 Group:          Development/Java
 Summary:        Demos for %{name}
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description demo
 Demonstrations and samples for %{name}.
@@ -80,7 +73,7 @@ find . -name "*.jar" -exec rm -f {} \;
 # -----------------------------------------------------------------------------
 
 %build
-CLASSPATH=$(build-classpath junit) %{ant} -Dbuild.sysclasspath=first jar test javadoc
+CLASSPATH=$(build-classpath junit) ant -Dbuild.sysclasspath=first jar test javadoc
 
 # -----------------------------------------------------------------------------
 
@@ -102,22 +95,10 @@ ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 install -d -m 0755 $RPM_BUILD_ROOT%{_datadir}/%{name}
 cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%if %{gcj_support}
-%{_bindir}/aot-compile-rpm
-%endif
-
 # -----------------------------------------------------------------------------
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%if %{gcj_support}
-%post
-%{update_gcjdb}
-
-%postun
-%{clean_gcjdb}
-%endif
 
 # -----------------------------------------------------------------------------
 
@@ -125,10 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(0644,root,root,0755)
 %doc LICENSE README docs/JUnitPerf.html
 %{_javadir}/*
-%if %{gcj_support}
-%dir %{_libdir}/gcj/%{name}
-%attr(-,root,root) %{_libdir}/gcj/%{name}/*
-%endif
 
 %files javadoc
 %defattr(0644,root,root,0755)
@@ -139,3 +116,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 
 # -----------------------------------------------------------------------------
+
