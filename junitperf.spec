@@ -78,27 +78,27 @@ CLASSPATH=$(build-classpath junit) ant -Dbuild.sysclasspath=first jar test javad
 # -----------------------------------------------------------------------------
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 # jars
-install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
+install -d -m 0755 %{buildroot}%{_javadir}
 install -m 0644 dist/%{name}-%{version}.jar \
-    $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-(cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
+    %{buildroot}%{_javadir}/%{name}-%{version}.jar
+(cd %{buildroot}%{_javadir} && for jar in *-%{version}*; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
 # javadoc
-install -d -m 0755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-cp -pr build/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+install -d -m 0755 %{buildroot}%{_javadocdir}/%{name}-%{version}
+cp -pr build/docs/api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 
 # demo
-install -d -m 0755 $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}
+install -d -m 0755 %{buildroot}%{_datadir}/%{name}
+cp -pr samples %{buildroot}%{_datadir}/%{name}
 
 # -----------------------------------------------------------------------------
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 # -----------------------------------------------------------------------------
 
