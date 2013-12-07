@@ -33,7 +33,7 @@
 Summary:	JUnit extension for performance and scalability testing
 Name:		junitperf
 Version:	1.9.1
-Release:	2.2.4
+Release:	2.2.5
 License:	BSD
 Group:		Development/Java
 Source0:	http://www.clarkware.com/software/junitperf-1.9.1.zip
