@@ -37,7 +37,7 @@ Group:		Development/Java
 License:        BSD
 Source0:        http://www.clarkware.com/software/junitperf-1.9.1.zip
 Source1:        https://repository.jboss.org/nexus/content/repositories/thirdparty-uploads/junitperf/junitperf/%{version}/junitperf-%{version}.pom
-URL:            http://www.clarkware.com/software/JUnitPerf.html
+URL:            https://www.clarkware.com/software/JUnitPerf.html
 BuildRequires:  ant
 BuildRequires:  ant-junit
 BuildRequires:  java-devel
